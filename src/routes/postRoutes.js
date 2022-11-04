@@ -5,6 +5,8 @@ const { errorHandlerAsync } = require("../middlewares/errorHandler");
 
 router.post("/", errorHandlerAsync(postController.creatPostController));
 
+router.get("/", errorHandlerAsync(postController.getListController));
+
 module.exports = {
   router,
 };
