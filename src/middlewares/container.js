@@ -25,6 +25,11 @@ class Request {
     const { postId } = this.data.params;
     return postId;
   };
+
+  getContentOfUpdate = () => {
+    const { title, content } = this.getBody();
+    return { title, content };
+  };
 }
 
 module.exports = Request;

@@ -1,7 +1,7 @@
 require("dotenv").config();
 const postDao = require("../models/postDao");
 const error = require("../middlewares/error");
-const bcrypt = require("bcrypt");
+const bcrypt = require("../middlewares/bcrypt");
 
 const createResult = async (data) => {
   const { title, content, password } = data.getBody();
@@ -15,13 +15,6 @@ const createResult = async (data) => {
   return result;
 };
 
-const hashPassword = async (password) => {
-  const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
-  return await bcrypt.hash(password, salt);
-};
-
-const isRightPass = async (password) => {};
-
 const creatPostService = async (data) => {
   const result = await createResult(data);
 
@@ -31,7 +24,7 @@ const creatPostService = async (data) => {
   error.errorOfLength(result.content, 200);
   error.checkPassword(result.password, regex);
 
-  result["password"] = await hashPassword(result["password"]);
+  result["password"] = await bcrypt.hashPassword(result["password"]);
 
   await postDao.createPostDao(result);
 };
@@ -48,8 +41,31 @@ const getPostPostService = async (data) => {
   return result;
 };
 
+const isRight = async (data) => {
+  const password = await data.getBody().password;
+  const postId = await data.getPostId();
+
+  const isRight = await bcrypt.isRightPassword(password, postId);
+
+  if (isRight === false) {
+    throw new error.BaseError("key_error", 403, "invalid_password");
+  }
+
+  return postId;
+};
+
+const updatePostService = async (data) => {
+  const postId = await isRight(data);
+  const contentOfUpdate = await data.getContentOfUpdate();
+
+  error.findKeyError(postId);
+
+  await postDao.updatePost(postId, contentOfUpdate);
+};
+
 module.exports = {
   creatPostService,
   getListPostService,
   getPostPostService,
+  updatePostService,
 };
