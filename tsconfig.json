@@ -1,5 +1,5 @@
 {
-    "include": ["src"],
+    "include": ["src", "build/Posts.ts"],
     "exclude": ["node_modules"],
      "compilerOptions": {
          "outDir": "build",

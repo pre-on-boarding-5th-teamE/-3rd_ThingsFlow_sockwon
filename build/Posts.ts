@@ -18,6 +18,9 @@ class Posts {
   @Column("varchar", { length: 200 })
   content!: string;
 
+  @Column("varchar")
+  password!: string;
+
   @Column()
   weather!: string;
 

@@ -1,75 +1,46 @@
-"use strict";
-var __decorate =
-  (this && this.__decorate) ||
-  function (decorators, target, key, desc) {
-    var c = arguments.length,
-      r =
-        c < 3
-          ? target
-          : desc === null
-          ? (desc = Object.getOwnPropertyDescriptor(target, key))
-          : desc,
-      d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
-      r = Reflect.decorate(decorators, target, key, desc);
-    else
-      for (var i = decorators.length - 1; i >= 0; i--)
-        if ((d = decorators[i]))
-          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-  };
-var __metadata =
-  (this && this.__metadata) ||
-  function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
-      return Reflect.metadata(k, v);
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typeorm_1 = require("typeorm");
-let Posts = class Posts {};
-__decorate(
-  [(0, typeorm_1.PrimaryColumn)(), __metadata("design:type", Number)],
-  Posts.prototype,
-  "id",
-  void 0
-);
-__decorate(
-  [
-    (0, typeorm_1.Column)("varchar", { length: 20 }),
-    __metadata("design:type", String),
-  ],
-  Posts.prototype,
-  "title",
-  void 0
-);
-__decorate(
-  [
-    (0, typeorm_1.Column)("varchar", { length: 200 }),
-    __metadata("design:type", String),
-  ],
-  Posts.prototype,
-  "content",
-  void 0
-);
-__decorate(
-  [(0, typeorm_1.Column)(), __metadata("design:type", String)],
-  Posts.prototype,
-  "weather",
-  void 0
-);
-__decorate(
-  [(0, typeorm_1.CreateDateColumn)(), __metadata("design:type", Date)],
-  Posts.prototype,
-  "created_at",
-  void 0
-);
-__decorate(
-  [(0, typeorm_1.UpdateDateColumn)(), __metadata("design:type", Date)],
-  Posts.prototype,
-  "updated_at",
-  void 0
-);
-Posts = __decorate([(0, typeorm_1.Entity)()], Posts);
+const EntitySchema = require("typeorm").EntitySchema;
+
+const Posts = new EntitySchema({
+  name: "Posts",
+  tableName: "posts",
+  columns: {
+    id: {
+      type: "int",
+      primary: true,
+      generated: true,
+      nullable: false,
+    },
+    title: {
+      type: "varchar",
+      length: 20,
+      nullable: false,
+    },
+
+    content: {
+      type: "varchar",
+      length: 200,
+      nullable: true,
+    },
+    weather: {
+      type: "varchar",
+      length: 100,
+      nullable: true,
+    },
+    password: {
+      type: "varchar",
+      length: 50,
+      nullable: false,
+    },
+
+    created_at: {
+      createDate: true,
+    },
+    updated_at: {
+      updateDate: true,
+    },
+  },
+});
+
 module.exports = {
   Posts,
 };
