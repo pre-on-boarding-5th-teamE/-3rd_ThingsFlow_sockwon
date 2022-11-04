@@ -1,0 +1,14 @@
+{
+    "include": ["src"],
+    "exclude": ["node_modules"],
+     "compilerOptions": {
+         "outDir": "build",
+         "target": "ES6",
+         "lib": ["ES6", "DOM"],
+         "esModuleInterop": true,
+         "strict" : true,
+         "module": "CommonJS",
+         "experimentalDecorators":true,
+         "emitDecoratorMetadata": true
+     }
+ }

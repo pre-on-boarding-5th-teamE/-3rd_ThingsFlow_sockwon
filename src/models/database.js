@@ -1,5 +1,5 @@
 const { DataSource } = require("typeorm");
-// const Posts = require("../entity/Posts");
+const { Posts } = require("../entity/Posts");
 
 const database = new DataSource({
   type: process.env.TYPEORM_CONNECTION,
@@ -10,7 +10,7 @@ const database = new DataSource({
   database: process.env.TYPEORM_DATABASE,
   logging: false,
   synchronize: true,
-  // entities: [Posts],
+  entities: [Posts],
 });
 
 module.exports = {
