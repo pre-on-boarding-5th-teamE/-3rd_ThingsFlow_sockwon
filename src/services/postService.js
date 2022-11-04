@@ -41,26 +41,42 @@ const getPostPostService = async (data) => {
   return result;
 };
 
-const isRight = async (data) => {
+const isRight = async (data, postId) => {
   const password = await data.getBody().password;
-  const postId = await data.getPostId();
 
   const isRight = await bcrypt.isRightPassword(password, postId);
 
   if (isRight === false) {
     throw new error.BaseError("key_error", 403, "invalid_password");
   }
+};
 
-  return postId;
+const isExist = async (table, postId) => {
+  const exist = await postDao.isExistId(table, postId);
+  if (!exist) throw new error.BaseError("none", 404, "not_found");
 };
 
 const updatePostService = async (data) => {
-  const postId = await isRight(data);
+  const postId = data.getPostId();
+
+  await isExist("posts", postId);
+  await isRight(data, postId);
+
+  error.findKeyError(postId);
   const contentOfUpdate = await data.getContentOfUpdate();
+
+  await postDao.updatePost(postId, contentOfUpdate);
+};
+
+const deletePostService = async (data) => {
+  const postId = data.getPostId();
+
+  await isExist("posts", postId);
+  await isRight(data, postId);
 
   error.findKeyError(postId);
 
-  await postDao.updatePost(postId, contentOfUpdate);
+  await postDao.deletePost(postId);
 };
 
 module.exports = {
@@ -68,4 +84,5 @@ module.exports = {
   getListPostService,
   getPostPostService,
   updatePostService,
+  deletePostService,
 };

@@ -14,6 +14,11 @@ router.patch(
   errorHandlerAsync(postController.updatePostController)
 );
 
+router.delete(
+  "/:postId",
+  errorHandlerAsync(postController.deletePostController)
+);
+
 module.exports = {
   router,
 };

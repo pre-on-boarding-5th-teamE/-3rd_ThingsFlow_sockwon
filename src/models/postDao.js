@@ -78,10 +78,25 @@ const updatePost = async (postId, contentOfUpdate) => {
     .execute();
 };
 
+const deletePost = async (postId) => {
+  const exist = await isExistId("Posts", postId);
+
+  if (!exist) throw new error.BaseError("none", 404, "not_found");
+
+  return await database
+    .createQueryBuilder()
+    .delete()
+    .from(Posts)
+    .where("id=:id", { id: postId })
+    .execute();
+};
+
 module.exports = {
   createPostDao,
   getList,
   getPost,
   getPassword,
   updatePost,
+  deletePost,
+  isExistId,
 };

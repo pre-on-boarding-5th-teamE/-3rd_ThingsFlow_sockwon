@@ -11,6 +11,7 @@ const database = new DataSource({
   logging: false,
   synchronize: true,
   entities: [Posts],
+  charset: "utf8mb4",
 });
 
 module.exports = {
