@@ -16,8 +16,14 @@ const getPostController = async (req, res) => {
   res.status(200).json({ result });
 };
 
+const updatePostController = async (req, res) => {
+  await postService.updatePostService(new requestData(req));
+  res.status(201).json({ message: "success" });
+};
+
 module.exports = {
   creatPostController,
   getListController,
   getPostController,
+  updatePostController,
 };

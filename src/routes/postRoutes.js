@@ -9,6 +9,11 @@ router.get("/", errorHandlerAsync(postController.getListController));
 
 router.get("/:postId", errorHandlerAsync(postController.getPostController));
 
+router.patch(
+  "/:postId",
+  errorHandlerAsync(postController.updatePostController)
+);
+
 module.exports = {
   router,
 };

@@ -1,5 +1,20 @@
 const { database } = require("./database");
 const { Posts } = require("../entity/Posts");
+const error = require("../middlewares/error");
+
+const isExistId = async (table, value) => {
+  const result = await database.query(
+    `
+          SELECT EXISTS(
+              SELECT
+                  id
+              FROM ${table}
+              WHERE id = '${value}'
+          ) as id
+          `
+  );
+  return Number(result[0].id);
+};
 
 const createPostDao = async (data) => {
   return await database
@@ -24,6 +39,10 @@ const getList = async () => {
 };
 
 const getPost = async (postId) => {
+  const exist = await isExistId("Posts", postId);
+
+  if (!exist) throw new error.BaseError("none", 404, "not_found");
+
   return await database
     .getRepository(Posts)
     .createQueryBuilder("posts")
@@ -37,8 +56,32 @@ const getPost = async (postId) => {
     .execute();
 };
 
+const getPassword = async (postId) => {
+  return await database
+    .getRepository(Posts)
+    .createQueryBuilder("posts")
+    .select(["posts.password"])
+    .where("posts.id=:id", { id: postId })
+    .execute();
+};
+
+const updatePost = async (postId, contentOfUpdate) => {
+  const exist = await isExistId("Posts", postId);
+
+  if (!exist) throw new error.BaseError("none", 404, "not_found");
+
+  return await database
+    .createQueryBuilder()
+    .update(Posts)
+    .set(contentOfUpdate)
+    .where("id=:id", { id: postId })
+    .execute();
+};
+
 module.exports = {
   createPostDao,
   getList,
   getPost,
+  getPassword,
+  updatePost,
 };
