@@ -21,9 +21,15 @@ const updatePostController = async (req, res) => {
   res.status(201).json({ message: "success" });
 };
 
+const deletePostController = async (req, res) => {
+  await postService.deletePostService(new requestData(req));
+  res.status(204).json();
+};
+
 module.exports = {
   creatPostController,
   getListController,
   getPostController,
   updatePostController,
+  deletePostController,
 };
