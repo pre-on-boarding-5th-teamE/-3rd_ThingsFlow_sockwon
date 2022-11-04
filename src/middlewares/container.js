@@ -20,6 +20,11 @@ class Request {
     const result = this.data.body;
     return result;
   };
+
+  getPostId = () => {
+    const { postId } = this.data.params;
+    return postId;
+  };
 }
 
 module.exports = Request;

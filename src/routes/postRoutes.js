@@ -7,6 +7,8 @@ router.post("/", errorHandlerAsync(postController.creatPostController));
 
 router.get("/", errorHandlerAsync(postController.getListController));
 
+router.get("/:postId", errorHandlerAsync(postController.getPostController));
+
 module.exports = {
   router,
 };

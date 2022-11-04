@@ -23,7 +23,22 @@ const getList = async () => {
     .execute();
 };
 
+const getPost = async (postId) => {
+  return await database
+    .getRepository(Posts)
+    .createQueryBuilder("posts")
+    .select([
+      "posts.id as ID",
+      "posts.title as 제목",
+      "posts.content as 내용",
+      "posts.weather as 날씨",
+    ])
+    .where("posts.id=:id", { id: postId })
+    .execute();
+};
+
 module.exports = {
   createPostDao,
   getList,
+  getPost,
 };

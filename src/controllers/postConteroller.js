@@ -11,7 +11,13 @@ const getListController = async (req, res) => {
   res.status(200).json({ result });
 };
 
+const getPostController = async (req, res) => {
+  const result = await postService.getPostPostService(new requestData(req));
+  res.status(200).json({ result });
+};
+
 module.exports = {
   creatPostController,
   getListController,
+  getPostController,
 };
