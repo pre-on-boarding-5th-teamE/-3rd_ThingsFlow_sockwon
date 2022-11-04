@@ -28,7 +28,7 @@ const Posts = new EntitySchema({
     },
     password: {
       type: "varchar",
-      length: 50,
+      length: 100,
       nullable: false,
     },
 
