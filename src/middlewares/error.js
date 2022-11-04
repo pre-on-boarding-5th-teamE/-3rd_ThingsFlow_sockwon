@@ -30,7 +30,21 @@ const findKeyError = (obj) => {
   }
 };
 
+const errorOfLength = (target, length) => {
+  if (target.length > length) {
+    throw new BaseError("key_error", 400, "invalid_key");
+  }
+};
+
+const checkPassword = (target, regex) => {
+  if (!regex.test(target)) {
+    throw new BaseError("key_error", 400, "invalid_password");
+  }
+};
+
 module.exports = {
   BaseError,
   findKeyError,
+  errorOfLength,
+  checkPassword,
 };
