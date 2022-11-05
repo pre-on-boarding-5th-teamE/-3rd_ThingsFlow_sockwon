@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "test": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config",
+    "start": "nodemon server.js",
+    "coverage": "DOTENV_CONFIG_PATH=.env.test jest --setupFiles=dotenv/config --coverage"
   },
   "repository": {
     "type": "git",

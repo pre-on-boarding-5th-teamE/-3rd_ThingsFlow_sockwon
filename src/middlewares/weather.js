@@ -9,6 +9,4 @@ const weather = async (clientIp) => {
   return result;
 };
 
-// weather().then((res) => console.log(res));
-
 module.exports = { weather };

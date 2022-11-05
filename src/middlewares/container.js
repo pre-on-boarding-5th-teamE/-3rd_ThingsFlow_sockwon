@@ -16,8 +16,19 @@ class Request {
     return result["data"]["current"]["condition"]["text"];
   };
 
-  getBody = () => {
-    const result = this.data.body;
+  createResult = async () => {
+    let { title, content, password, weather } = this.data.body;
+    if (!weather) {
+      weather = await this.getWeather();
+    }
+
+    const result = {
+      weather,
+      title,
+      content,
+      password,
+    };
+
     return result;
   };
 
