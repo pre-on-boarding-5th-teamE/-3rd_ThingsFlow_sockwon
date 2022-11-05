@@ -3,6 +3,21 @@ const postDao = require("../models/postDao");
 const error = require("../middlewares/error");
 const bcrypt = require("../middlewares/bcrypt");
 
+const isRight = async (data, postId) => {
+  const password = await data.getBody().password;
+
+  const isRight = await bcrypt.isRightPassword(password, postId);
+
+  if (isRight === false) {
+    throw new error.BaseError("key_error", 403, "invalid_password");
+  }
+};
+
+const isExist = async (table, postId) => {
+  const exist = await postDao.isExistId(table, postId);
+  if (!exist) throw new error.BaseError("none", 404, "not_found");
+};
+
 const creatPostService = async (data) => {
   const result = await data.createResult();
 
@@ -23,34 +38,22 @@ const getListPostService = async () => {
 };
 
 const getPostPostService = async (data) => {
-  const value = await data.getPostId();
-  error.findKeyError(value);
-  const result = await postDao.getPost(value);
+  const postId = await data.getPostId();
+
+  error.findKeyError(postId);
+  await isExist("posts", postId);
+
+  const result = await postDao.getPost(postId);
   return result;
-};
-
-const isRight = async (data, postId) => {
-  const password = await data.getBody().password;
-
-  const isRight = await bcrypt.isRightPassword(password, postId);
-
-  if (isRight === false) {
-    throw new error.BaseError("key_error", 403, "invalid_password");
-  }
-};
-
-const isExist = async (table, postId) => {
-  const exist = await postDao.isExistId(table, postId);
-  if (!exist) throw new error.BaseError("none", 404, "not_found");
 };
 
 const updatePostService = async (data) => {
   const postId = data.getPostId();
+  error.findKeyError(postId);
 
   await isExist("posts", postId);
   await isRight(data, postId);
 
-  error.findKeyError(postId);
   const contentOfUpdate = await data.getContentOfUpdate();
 
   await postDao.updatePost(postId, contentOfUpdate);
@@ -58,11 +61,10 @@ const updatePostService = async (data) => {
 
 const deletePostService = async (data) => {
   const postId = data.getPostId();
+  error.findKeyError(postId);
 
   await isExist("posts", postId);
   await isRight(data, postId);
-
-  error.findKeyError(postId);
 
   await postDao.deletePost(postId);
 };
