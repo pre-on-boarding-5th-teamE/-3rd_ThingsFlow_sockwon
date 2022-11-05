@@ -93,5 +93,27 @@ describe("CRRUD test:", () => {
     });
   });
 
-  //   describe("게시글 읽기", () => {});
+  describe("게시글 읽기 테스트", () => {
+    test("게시글 상세 읽기 성공: statusCode 200", async () => {
+      const response = await request(app).get("/api/v1/posts/1");
+      const value = response.body.result[0]["제목"];
+      expect(response.status).toBe(200);
+      expect(value).toBe("first");
+    });
+
+    test("게시글 상세 읽기 실패 없는 게시물: statusCode 404", async () => {
+      const response = await request(app).get("/api/v1/posts/999");
+      expect(response.status).toBe(404);
+    });
+
+    test("게시글 리스트 읽기 성공:statusCode 200", async () => {
+      const response = await request(app).get("/api/v1/posts");
+      expect(response.status).toBe(200);
+      expect(response.body.result.length).toBe(3);
+    });
+  });
+
+  //   describe('게시글 수정', ()=>{
+  //     test('게시글 수정 성공: statusCode ')
+  //   })
 });
