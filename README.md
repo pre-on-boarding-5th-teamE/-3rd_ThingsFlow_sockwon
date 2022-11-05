@@ -97,4 +97,4 @@
 ---
 
 ## API 명세
-  [API 명세 노션 페이지](https://www.notion.so/api-v1-posts-892fb25938c54056af0f95adef430064)
+  [API 명세 노션 페이지](https://www.notion.so/299292e01e1a472aa84fd6b2402cc2eb?v=73f7fa437614408aad5a8eb635bf26a3)
