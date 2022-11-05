@@ -3,20 +3,8 @@ const postDao = require("../models/postDao");
 const error = require("../middlewares/error");
 const bcrypt = require("../middlewares/bcrypt");
 
-const createResult = async (data) => {
-  const { title, content, password } = data.getBody();
-  const weather = await data.getWeather();
-  const result = {
-    weather,
-    title,
-    content,
-    password,
-  };
-  return result;
-};
-
 const creatPostService = async (data) => {
-  const result = await createResult(data);
+  const result = await data.createResult();
 
   const regex = /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
   error.findKeyError(result);
