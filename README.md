@@ -28,6 +28,8 @@
     - 본문: max_length 200
     - 비밀번호: 암호화-비밀번호  U D
     - 날씨: 외부 api 사용
+    - ERD
+     - <img width="300" alt="ERD 스크린샷" src="https://user-images.githubusercontent.com/88824305/200100551-ba13aaa9-6dd5-4087-87a2-2efa4142cf92.jpg">
 - API: Posts
     
     
@@ -61,18 +63,18 @@
 - 테스트 결과
     - 테스트값
         
-        ![스크린샷 2022-11-05 오후 12.58.54.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd3224fe-0dba-4127-8d6e-084895648d94/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-05_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_12.58.54.jpg)
+       <img width="500" alt="테스트 값 스크린샷" src="https://user-images.githubusercontent.com/88824305/200100487-d96c284f-8b27-41e3-b895-c33765f754c0.jpg">
         
     - 테스트 커버리지
-        
-        ![스크린샷 2022-11-05 오후 12.58.11.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4310556f-ac08-49af-9b02-66b0f8a90957/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-05_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_12.58.11.jpg)
-        
 
-### ERD
+       <img width="500" alt="테스트 커버리지 스크린샷" src="https://user-images.githubusercontent.com/88824305/200100516-c6cb5676-34e6-4523-a63a-b92791122581.jpg">
 
-![스크린샷 2022-11-04 오전 11.53.59.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/08f6fea3-e904-4b7c-a293-cab3a2f6fe35/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-11-04_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_11.53.59.jpg)
+
+
+    
 
 ---
+
 
 ## 개발조건
 
@@ -98,3 +100,6 @@
 
 ## API 명세
   [API 명세 노션 페이지](https://www.notion.so/299292e01e1a472aa84fd6b2402cc2eb?v=73f7fa437614408aad5a8eb635bf26a3)
+   <br/>
+    
+  [포스트맨](https://documenter.getpostman.com/view/22555415/2s8YYENjjG)
