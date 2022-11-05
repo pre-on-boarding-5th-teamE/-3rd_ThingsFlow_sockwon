@@ -113,7 +113,64 @@ describe("CRRUD test:", () => {
     });
   });
 
-  //   describe('게시글 수정', ()=>{
-  //     test('게시글 수정 성공: statusCode ')
-  //   })
+  describe("게시글 수정", () => {
+    test("게시글 수정 성공: statusCode 201", async () => {
+      await request(app)
+        .patch("/api/v1/posts/1")
+        .send({
+          title: "수정",
+          password: "password1111",
+        })
+        .expect(201);
+    });
+
+    test("게시글 수정 실패, 권한 없음: statusCode 403", async () => {
+      await request(app)
+        .patch("/api/v1/posts/1")
+        .send({
+          title: "수정",
+          password: "123456789ppppppp",
+        })
+        .expect(403);
+    });
+
+    test("게시글 수정 실패, 없는 게시글: statusCode 404", async () => {
+      await request(app)
+        .patch("/api/v1/posts/999")
+        .send({
+          title: "수정",
+          password: "password1111",
+        })
+        .expect(404);
+    });
+  });
+
+  describe("게시글 삭제:", () => {
+    test("게시글 삭제 성공: statusCode 204", async () => {
+      await request(app)
+        .delete("/api/v1/posts/1")
+        .send({
+          password: "password1111",
+        })
+        .expect(204);
+    });
+
+    test("게시글 삭제 실패, 권한 없음: statusCode 403", async () => {
+      await request(app)
+        .delete("/api/v1/posts/2")
+        .send({
+          password: "password1",
+        })
+        .expect(403);
+    });
+
+    test("게시글 삭제 실패, 없는 게시물: statusCode 404", async () => {
+      await request(app)
+        .delete("/api/v1/posts/999")
+        .send({
+          password: "password1111",
+        })
+        .expect(404);
+    });
+  });
 });

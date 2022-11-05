@@ -1,6 +1,5 @@
 const { database } = require("./database");
 const { Posts } = require("../entity/Posts");
-const error = require("../middlewares/error");
 
 const isExistId = async (table, value) => {
   const result = await database.query(
@@ -39,10 +38,6 @@ const getList = async () => {
 };
 
 const getPost = async (postId) => {
-  const exist = await isExistId("Posts", postId);
-
-  if (!exist) throw new error.BaseError("none", 404, "not_found");
-
   return await database
     .getRepository(Posts)
     .createQueryBuilder("posts")
@@ -66,10 +61,6 @@ const getPassword = async (postId) => {
 };
 
 const updatePost = async (postId, contentOfUpdate) => {
-  const exist = await isExistId("Posts", postId);
-
-  if (!exist) throw new error.BaseError("none", 404, "not_found");
-
   return await database
     .createQueryBuilder()
     .update(Posts)
@@ -79,10 +70,6 @@ const updatePost = async (postId, contentOfUpdate) => {
 };
 
 const deletePost = async (postId) => {
-  const exist = await isExistId("Posts", postId);
-
-  if (!exist) throw new error.BaseError("none", 404, "not_found");
-
   return await database
     .createQueryBuilder()
     .delete()

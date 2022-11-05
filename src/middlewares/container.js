@@ -32,13 +32,18 @@ class Request {
     return result;
   };
 
+  getBody = () => {
+    const { body } = this.data;
+    return body;
+  };
+
   getPostId = () => {
     const { postId } = this.data.params;
     return postId;
   };
 
   getContentOfUpdate = () => {
-    const { title, content } = this.getBody();
+    const { title, content } = this.data.body;
     return { title, content };
   };
 }
