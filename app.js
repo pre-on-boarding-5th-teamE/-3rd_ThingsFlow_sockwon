@@ -1,7 +1,18 @@
+/**
+ * Module dependencies.
+ */
+
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const routes = require("./src/routes");
+
+/**
+ * Create an express application.
+ *
+ * @return {Function}
+ * @api public
+ */
 
 const createApp = () => {
   const app = express();
@@ -19,5 +30,10 @@ const createApp = () => {
   app.use(routes);
   return app;
 };
+
+/**
+ * Module exports.
+ * @public
+ */
 
 module.exports = { createApp };

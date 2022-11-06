@@ -1,7 +1,19 @@
+/**
+ * Module dependencies.
+ */
+
 require("dotenv").config();
 
 const { createApp } = require("./app");
 const { database } = require("./src/models/database");
+
+/**
+ * Initialize the server.
+ *
+ *   - setup default configuration
+ *   - setup default middleware
+ * @public
+ */
 
 const startServer = async () => {
   const app = createApp();
