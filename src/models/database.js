@@ -1,5 +1,13 @@
+/**
+ * Module dependencies.
+ */
+
 const { DataSource } = require("typeorm");
 const { Posts } = require("../entity/Posts");
+
+/**
+ * typeORM 사용. 데이터베이스와 연결 설정. 구동은 server.js 에서.
+ */
 
 const database = new DataSource({
   type: process.env.TYPEORM_CONNECTION,
@@ -13,6 +21,11 @@ const database = new DataSource({
   entities: [Posts],
   charset: "utf8mb4",
 });
+
+/**
+ * Module exports.
+ * @public
+ */
 
 module.exports = {
   database,

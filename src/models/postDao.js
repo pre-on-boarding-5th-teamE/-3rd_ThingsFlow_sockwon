@@ -1,5 +1,16 @@
+/**
+ * Module dependencies.
+ */
+
 const { database } = require("./database");
 const { Posts } = require("../entity/Posts");
+
+/**
+ * 특정 테이블 내에 존재하는 id 인지 확인한다.
+ * @param {string} tableName
+ * @param {number} postId
+ * @returns {0 | 1}
+ */
 
 const isExistId = async (table, value) => {
   const result = await database.query(
@@ -15,6 +26,12 @@ const isExistId = async (table, value) => {
   return Number(result[0].id);
 };
 
+/**
+ * 게시글 쓰기
+ * @param {object} data
+ * @returns {object} InsertResult
+ */
+
 const createPostDao = async (data) => {
   return await database
     .createQueryBuilder()
@@ -29,13 +46,25 @@ const createPostDao = async (data) => {
     .execute();
 };
 
+/**
+ * 게시물 리스트
+ * @returns {object}
+ */
+
 const getList = async () => {
   return await database
     .getRepository(Posts)
     .createQueryBuilder("posts")
     .select(["posts.id as ID", "posts.title as 제목", "posts.weather as 날씨"])
+    .orderBy("id", "ASC")
     .execute();
 };
+
+/**
+ * 게시물 상세읽기
+ * @param {number} postId
+ * @returns {object}
+ */
 
 const getPost = async (postId) => {
   return await database
@@ -51,6 +80,12 @@ const getPost = async (postId) => {
     .execute();
 };
 
+/**
+ *
+ * @param {number} postId
+ * @returns string
+ */
+
 const getPassword = async (postId) => {
   return await database
     .getRepository(Posts)
@@ -59,6 +94,13 @@ const getPassword = async (postId) => {
     .where("posts.id=:id", { id: postId })
     .execute();
 };
+
+/**
+ * 게시물 수정하기.
+ * @param {number} postId
+ * @param {object} contentOfUpdate
+ * @returns {object} UpdateResult
+ */
 
 const updatePost = async (postId, contentOfUpdate) => {
   return await database
@@ -69,6 +111,12 @@ const updatePost = async (postId, contentOfUpdate) => {
     .execute();
 };
 
+/**
+ * 게시물 지우기
+ * @param {number} postId
+ * @returns {object } DeleteResult
+ */
+
 const deletePost = async (postId) => {
   return await database
     .createQueryBuilder()
@@ -77,6 +125,11 @@ const deletePost = async (postId) => {
     .where("id=:id", { id: postId })
     .execute();
 };
+
+/**
+ * Module exports.
+ * @public
+ */
 
 module.exports = {
   createPostDao,
